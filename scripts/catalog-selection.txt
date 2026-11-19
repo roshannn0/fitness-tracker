@@ -1,0 +1,74 @@
+169757|White rice|Cooked · long-grain|nasi putih,nasi,rice
+169756|White rice|Dry · long-grain|beras putih,beras
+169704|Brown rice|Cooked · long-grain|nasi perang
+168483|Sweet potato|Baked flesh|ubi keledek,keledek
+168484|Sweet potato|Boiled · peeled|ubi keledek,keledek
+171450|Roast chicken with skin|Roasted · deboned edible meat and skin|ayam panggang,ayam bakar,roast chicken
+171054|Roast chicken without skin|Roasted · deboned edible meat|ayam panggang,ayam bakar,skinless
+171477|Roast chicken breast|Roasted · boneless and skinless|dada ayam
+173625|Roast chicken thigh with skin|Roasted · deboned edible meat and skin|peha ayam,paha ayam
+172388|Roast chicken thigh without skin|Roasted · deboned edible meat|peha ayam,paha ayam
+170391|Bok choy|Boiled and drained|bak choy,pak choy,sawi
+170390|Bok choy|Raw|bak choy,pak choy,sawi
+169967|Broccoli|Boiled and drained|brokoli
+170379|Broccoli|Raw|brokoli
+170393|Carrot|Raw|lobak merah
+170394|Carrot|Boiled and drained|lobak merah
+168462|Spinach|Raw|bayam
+168463|Spinach|Boiled and drained|bayam
+169975|Green cabbage|Raw|kubis,kobis
+170392|Kimchi|Fermented cabbage · estimate|kimchi
+173424|Egg|Hard-boiled · shelled|telur rebus,telur
+171287|Egg|Raw · shelled|telur ayam,telur
+172475|Firm tofu|Raw · calcium-set|tauhu,tofu
+172476|Regular tofu|Raw · calcium-set|tauhu,tofu
+172467|Tempeh|Cooked|tempe
+174272|Tempeh|Uncooked|tempe
+172421|Lentils|Boiled and drained|dal,dhal,kacang dal
+174284|Red lentils|Dry|dal,dhal
+171265|Whole milk|3.25% milk fat · by weight|susu,susu penuh krim
+169705|Oats|Dry|oat,rolled oats
+170894|Greek yogurt|Plain · nonfat|yogurt greek,yoghurt
+171304|Greek yogurt|Plain · whole milk|yogurt greek,yoghurt
+171284|Yogurt|Plain · whole milk|yoghurt
+171646|Granola|Homemade style · estimate|oats cereal
+171413|Olive oil|Cooking oil · by weight|minyak zaitun
+172336|Canola oil|Cooking oil · by weight|minyak masak
+169141|Green beans|Boiled and drained|kacang buncis
+170420|Green peas|Boiled and drained|kacang pis
+170457|Tomato|Raw|tomato,tomat
+168409|Cucumber|Raw · with peel|timun
+170440|Potato|Boiled · peeled|kentang
+173944|Banana|Raw · peeled|pisang
+171688|Apple|Raw · with skin|epal
+173044|Guava|Raw|jambu batu
+169926|Papaya|Raw|betik
+169910|Mango|Raw|mangga
+169124|Pineapple|Raw|nanas
+167765|Watermelon|Raw|tembikai
+169097|Orange|Raw|oren
+172430|Peanuts|Raw · shelled|kacang tanah
+170567|Almonds|Plain|badam
+168411|Edamame|Cooked · shelled|kacang soya
+173757|Chickpeas|Boiled and drained|kacang kuda
+173735|Black beans|Boiled and drained|kacang hitam
+175168|Atlantic salmon|Cooked · dry heat|ikan salmon
+175177|Tilapia|Cooked · dry heat|ikan tilapia
+171986|Tuna in water|Canned · drained|ikan tuna
+174277|Soy sauce|Soy and wheat · by weight|kicap,shoyu
+168893|Whole-wheat flour|Dry|tepung gandum
+172688|Whole-wheat bread|Commercial|roti gandum
+168928|Pasta|Cooked · unsalted|pasta,mi
+169999|Sweet corn|Boiled and drained|jagung
+171705|Avocado|Raw|avokado
+169230|Garlic|Raw|bawang putih
+169231|Ginger|Raw|halia
+170000|Onion|Raw|bawang
+169251|White mushroom|Raw|cendawan
+169988|Celery|Raw|saderi
+169986|Cauliflower|Raw|bunga kubis
+169228|Eggplant|Raw|terung
+168449|Pumpkin|Boiled and drained|labu
+168191|Medjool dates|Pitted portion|kurma
+169640|Honey|By weight|madu
+170273|Dark chocolate|70–85% cacao|coklat
