@@ -1,10 +1,12 @@
-import { isDateKey, timestamp, uuid, type Exercise, type Session, type SetLog, type Template } from './model.js'
+import { isDateKey, newProfile, timestamp, uuid, type Exercise, type Profile, type Session, type SetLog, type Template } from './model.js'
 import { liftHistory } from './progress.js'
 import { updateProfile, updateSession } from './storage.js'
 import { bindDate, dateStrip, empty, errorLine, escapeHtml as h, formIn, heading, icon, numInput, numberValue, on, options,
   positiveValue, sheet, submit, textValue, wholeValue, type View } from './ui.js'
 
 const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+const fullWeekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+const splitDays = new Map([['upper-a', 1], ['lower-core', 3], ['upper-b', 5]])
 let currentSession = ''
 const sides = ['', 'Left', 'Right', 'Both'] as const
 const kinds = ['lift', 'timed', 'cardio'] as const
@@ -34,10 +36,13 @@ async function startSession(view: View, template: Template) {
 export function renderTraining(view: View) {
   const sessions = view.data.sessions.filter(session => session.date === view.date)
   const active = sessions.find(session => session.id === currentSession) ?? sessions.find(session => !session.complete)
+  const canSetUpSplit = splitSetupRows(view.data.profile).length > 0
   view.root.innerHTML = heading('Training', 'Log a session and keep your working sets together.', dateStrip(view.date)) +
     (active ? sessionCard(active) : '') +
     '<section class="panel"><div class="section-head"><div><h2>Workout templates</h2><p>Set your own schedule and exercise order.</p></div>' +
-    '<button class="button secondary" id="new-template">' + icon('plus', 17) + ' New template</button></div><div class="template-grid">' +
+    '<div class="button-row">' +
+    (canSetUpSplit ? '<button class="button secondary" id="setup-split">Set up training split</button>' : '') +
+    '<button class="button secondary" id="new-template">' + icon('plus', 17) + ' New template</button></div></div><div class="template-grid">' +
     (view.data.profile.templates.length ? view.data.profile.templates.map(template =>
       '<article class="template"><div class="side-head"><span class="square purple">' + icon('training') + '</span><div><h3>' + h(template.name) +
       '</h3><p>' + template.exercises.length + ' exercises · ' + (template.weekdays.length ? template.weekdays.map(day => weekdays[day]).join(', ') : 'No schedule') +
@@ -52,6 +57,7 @@ export function renderTraining(view: View) {
       '</ul>' : empty('No training logged', 'Choose a workout template to start.', 'training')) + '</section>'
   bindDate(view)
   bindSession(view, active)
+  on(view.root, '#setup-split', () => splitSheet(view))
   on(view.root, '#new-template', () => templateSheet(view))
   on(view.root, '[data-template]', button => {
     const template = view.data.profile.templates.find(item => item.id === button.dataset.template)
@@ -66,6 +72,40 @@ export function renderTraining(view: View) {
     currentSession = button.dataset.openSession ?? ''
     view.render()
     view.root.querySelector<HTMLElement>('#session-title')?.focus()
+  })
+}
+function splitSetupRows(profile: Profile) {
+  return newProfile().templates.flatMap(starter => {
+    const day = splitDays.get(starter.id)
+    const current = profile.templates.find(template => template.id === starter.id)
+    if (day === undefined || current?.weekdays.length) return []
+    return [{ template: current ?? starter, day }]
+  })
+}
+function splitSheet(view: View) {
+  const rows = splitSetupRows(view.data.profile)
+  const dialog = sheet('Set up training split', '<p>Choose the days for your Upper A, Lower &amp; Core, and Upper B templates. Dayline adds any missing templates and keeps days you already scheduled.</p>' +
+    '<form class="stack">' + rows.map(({ template, day }) =>
+      '<label>' + h(template.name) + '<select name="' + h(template.id) + '">' + fullWeekdays.map((label, index) =>
+        '<option value="' + index + '"' + (index === day ? ' selected' : '') + '>' + label + '</option>').join('') +
+      '</select></label>').join('') + errorLine + '<button class="button primary">Save training split</button></form>')
+  submit(formIn(dialog), async data => {
+    const selected = new Map(rows.map(({ template }) => {
+      const value = data.get(template.id)
+      const day = fullWeekdays.findIndex((_, index) => String(index) === value)
+      if (day === -1) throw new Error('Choose a day for each workout.')
+      return [template.id, day]
+    }))
+    const saved = await view.save(() => updateProfile(view.db, profile => {
+      const changes = splitSetupRows(profile).flatMap(({ template }) => {
+        const day = selected.get(template.id)
+        return day === undefined ? [] : [{ ...template, weekdays: [day] }]
+      })
+      const templates = profile.templates.map(template => changes.find(item => item.id === template.id) ?? template)
+      templates.push(...changes.filter(template => !profile.templates.some(item => item.id === template.id)))
+      return { ...profile, templates }
+    }), 'Training split saved')
+    if (saved) dialog.close()
   })
 }
 function sessionCard(session: Session) {
